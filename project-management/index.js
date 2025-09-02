@@ -41,6 +41,12 @@ app.use(express.static(`${__dirname}/public`));
 routeAdmin(app);
 route(app);
 
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`)
-});
+// Chỉ listen khi chạy local
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`Local: http://localhost:${PORT}`));
+}
+// Quan trọng: export app để wrapper require được
+module.exports = app;
+
+
