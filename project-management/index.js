@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('express-flash');
 const multer  = require('multer');
-const path = require('path'); 
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -25,7 +24,7 @@ app.use(methodOverride('_method'));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded())
 
-app.set('views', path.join(process.cwd(), 'views'));
+app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 
 //Flash
@@ -36,7 +35,7 @@ app.use(flash());
 // App locals variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
-app.use('/public', express.static(path.join(process.cwd(), 'public')));
+app.use(express.static(`${__dirname}/public`));
 
 //Routes
 routeAdmin(app);

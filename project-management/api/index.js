@@ -1,4 +1,7 @@
-// project-management/api/index.js
-const serverless = require('@vendia/serverless-express');
-const app = require('../index'); // vì bạn export app ở index.js
-module.exports = (req, res) => serverless({ app })(req, res);
+// api/index.js
+const app = require('../index'); // app đã được module.exports ở index.js
+
+// Vercel chỉ cần (req, res)
+module.exports = (req, res) => {
+  return app(req, res);
+};
