@@ -1,5 +1,10 @@
 // api/index.js
 const serverless = require('@vendia/serverless-express');
-const app = require('../index'); // hoặc '../app' nếu bạn tách app riêng
+const app = require('../index'); // <-- quan trọng: trỏ đúng file export ra "app"
 
-module.exports = (req, res) => serverless({ app })(req, res);
+console.log('[api/index] loaded'); // sẽ thấy log này khi function init
+
+module.exports = (req, res) => {
+  console.log('[api/index] invoked', req.method, req.url); // sẽ thấy log mỗi request
+  return serverless({ app })(req, res);
+};
