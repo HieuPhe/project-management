@@ -38,8 +38,21 @@ module.exports.index = async (req, res) => {
     countProducts
   );
 
+
+  //Sắp xếp
+
+  let sort = {};
+
+  if (req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue;
+  } else {
+    sort.position = "desc";
+  }
+
+
+
   const products = await Product.find(find)
-    .sort({ position: "desc" })
+    .sort(sort)
     .limit(objectPagination.limitItems)
     .skip(objectPagination.skip);
 
@@ -191,7 +204,7 @@ module.exports.editPatch = async (req, res) => {
   }
 
   try {
-    await Product.updateOne({_id:id },req.body);
+    await Product.updateOne({ _id: id }, req.body);
     req.flash('success', `Cập nhật thành công!`);
   } catch (error) {
     req.flash('error', `Cập nhật thất bại!`);
@@ -213,7 +226,7 @@ module.exports.detail = async (req, res) => {
     const product = await Product.findOne(find);
 
     console.log(product);
-    
+
 
     res.render("admin/pages/products/detail", {
       pageTitle: product.title,
