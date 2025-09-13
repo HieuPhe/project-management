@@ -60,12 +60,12 @@ module.exports.index = async (req, res) => {
     .limit(objectPagination.limitItems)
     .skip(objectPagination.skip);
 
-  for (const product of products ){
+  for (const product of products) {
     const user = await Account.findOne({
       _id: product.createdBy.account_id
     });
 
-    if(user){
+    if (user) {
       product.accountFullName = user.fullName;
     }
   }
@@ -112,7 +112,11 @@ module.exports.changeMulti = async (req, res) => {
     case "delete-all":
       await Product.updateMany({ _id: { $in: ids } }, {
         deleted: true,
-        deletedAt: new Date(),
+        // deletedAt: new Date(),
+        deletedBy: {
+          account_id: res.locals.user.id,
+          deletedAt: new Date(),
+        }
       }
       );
       req.flash('success', `Đã xóa thành công ${ids.length} sản phẩm!`);
@@ -144,10 +148,15 @@ module.exports.deleteItem = async (req, res) => {
   const id = req.params.id;
 
   // await Product.deleteOne({ _id: id });
-  await Product.updateOne({ _id: id }, {
-    deleted: true,
-    deletedAt: new Date()
-  });
+  await Product.updateOne(
+    { _id: id },
+    {
+      deleted: true,
+      deletedBy: {
+        account_id: res.locals.user.id,
+        deletedAt: new Date(),
+      }
+    });
 
   res.redirect(req.get('referer') || '/');
 };
@@ -207,11 +216,11 @@ module.exports.edit = async (req, res) => {
 
     const product = await Product.findOne(find);
 
-  const category = await ProductCategory.find({
-    deleted: false
-  });
+    const category = await ProductCategory.find({
+      deleted: false
+    });
 
-  const newCategory = createTreeHelper.tree(category);
+    const newCategory = createTreeHelper.tree(category);
 
     res.render("admin/pages/products/edit", {
       pageTitle: "Chỉnh sửa sản phẩm",
