@@ -13,8 +13,6 @@ module.exports.index = async (req, res) => {
     return item;
   });
 
-  console.log(newProducts);
-
 
   res.render("client/pages/products/index.pug", {
     pageTitle: "Danh sách sản phẩm",
@@ -36,9 +34,7 @@ module.exports.detail = async (req, res) => {
       };
   
       const product = await Product.findOne(find);
-  
-      console.log(product);
-      
+        
   
       res.render("client/pages/products/detail", {
         pageTitle: product.title,
