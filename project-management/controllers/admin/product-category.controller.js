@@ -41,27 +41,26 @@ module.exports.create = async (req, res) => {
 
 module.exports.createPost = async (req, res) => {
   //cần thêm cho các phương thức post, patch, delete
-  // console.log(res.locals.role.permissions);
+  console.log(res.locals.role.permissions);
 
-  // if(permissions.includes("products-category_create")){
+  if (permissions.includes("products-category_create")) {
+    if (req.body.position == "") {
+      const count = await ProductCategory.countDocuments();
+      req.body.position = count + 1;
+    } else {
+      req.body.position = parseInt(req.body.position);
+    }
 
-  // }else{
-  //   return;
-  // }
-  
+    const record = new ProductCategory(req.body);
 
-  if (req.body.position == "") {
-    const count = await ProductCategory.countDocuments();
-    req.body.position = count + 1;
+    await record.save();
+
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
   } else {
-    req.body.position = parseInt(req.body.position);
+    res.send("403");
+    return;
   }
 
-  const record = new ProductCategory(req.body);
-
-  await record.save();
-
-  res.redirect(`${systemConfig.prefixAdmin}/products-category`);
 };
 
 
