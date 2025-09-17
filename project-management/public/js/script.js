@@ -1,5 +1,4 @@
 // Show Alert
-
 const ShowAlert = document.querySelector("[show-alert]");
 if (ShowAlert) {
 
