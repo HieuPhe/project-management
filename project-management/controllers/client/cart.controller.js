@@ -29,7 +29,7 @@ module.exports.index = async (req,res) =>{
 
     cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice, 0)
     
-    console.log(cart);
+    // console.log(cart);
     
 
     res.render("client/pages/cart/index",{
@@ -81,6 +81,23 @@ module.exports.addPost = async (req, res) => {
 
 
     req.flash('success', `Đã thêm sản phẩm vào giỏ hàng!`);
+
+    res.redirect(req.get('referer') || '/');
+}
+
+//[GET] /cart/delete/:productId
+
+module.exports.delete = async (req, res) =>{
+    const cartId = req.cookies.cartId;
+    const productId = req.params.productId;
+
+    await Cart.updateOne({
+        _id: cartId
+    }, {
+        $pull:{products: { product_id : productId }}
+    });
+
+    req.flash('success', `Đã xóa sản phẩm khỏi giỏ hàng!`);
 
     res.redirect(req.get('referer') || '/');
 }
