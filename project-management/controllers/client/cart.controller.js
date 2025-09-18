@@ -27,7 +27,7 @@ module.exports.index = async (req,res) =>{
         }
     }
 
-    cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice, 0)
+    cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice, 0);
     
     // console.log(cart);
     

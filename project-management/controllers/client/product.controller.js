@@ -12,12 +12,12 @@ module.exports.index = async (req, res) => {
     deleted: false
   }).sort({ position: "desc" });
 
-  const newProducts = productsHelper.priceNewProducts(products);;
+  const newProducts = productsHelper.priceNewProducts(products);
 
 
   res.render("client/pages/products/index.pug", {
     pageTitle: "Danh sách sản phẩm",
-    products: newProducts
+    products: newProducts,
   });
 }
 
