@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('express-flash');
 const moment = require('moment');
-const multer  = require('multer');
+const multer = require('multer');
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -46,6 +46,12 @@ app.use(express.static(`${__dirname}/public`));
 //Routes
 routeAdmin(app);
 route(app);
+app.use((req, res) => {
+  res.status(404).render("client/pages/errors/404", {
+    pageTitle: "404 Not Found",
+  });
+});
+
 
 // Chỉ listen khi chạy local
 if (require.main === module) {
