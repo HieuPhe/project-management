@@ -7,6 +7,9 @@ const session = require('express-session');
 const flash = require('express-flash');
 const moment = require('moment');
 const multer = require('multer');
+const http = require('http');
+const { Server } = require("socket.io");
+
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -20,6 +23,15 @@ database.connect();
 
 const app = express();
 const port = process.env.PORT;
+
+// Socket.IO
+const server = http.createServer(app);
+const io = new Server(server);
+io.on('connection', (socket) => {
+    console.log('a user connected', socket.id);
+});
+
+// End Socket.IO
 
 app.use(methodOverride('_method'));
 
@@ -56,7 +68,7 @@ app.use((req, res) => {
 // Chỉ listen khi chạy local
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(`Local: http://localhost:${PORT}`));
+  server.listen(PORT, () => console.log(`Local: http://localhost:${PORT}`));
 }
 // Quan trọng: export app để wrapper require được
 module.exports = app;

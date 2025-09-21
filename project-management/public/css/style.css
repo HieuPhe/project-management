@@ -245,7 +245,7 @@
   max-width: 720px; 
   margin: 12px auto 0;
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   padding: 18px 20px;
@@ -280,7 +280,7 @@
 }
 
 .inner-incoming .inner-content {
-  background: #ececef; /* xám rất nhạt */
+  background: #e0e0e0; /* xám rất nhạt */
   color: #222;
   border: 1px solid rgba(0, 0, 0, 0.05);
   align-self: flex-start;
@@ -320,8 +320,8 @@
 
 .inner-form input[name="content"] {
   height: 44px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: #f6f6f8;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: #e0e0e0;
   border-radius: 12px;
   outline: none;
   padding: 0 14px;
