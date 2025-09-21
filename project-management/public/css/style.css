@@ -224,7 +224,7 @@
   visibility: hidden;
 }
 
-[show-alert] [close-alert]{
+[show-alert] [close-alert] {
   background: #ffffffc4;
   display: inline-block;
   width: 24px;
@@ -237,3 +237,121 @@
 }
 
 /* End Show Alert */
+
+/* Show Chat */
+
+.chat {
+  width: 100%;
+  max-width: 720px; 
+  margin: 12px auto 0;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  padding: 18px 20px;
+}
+
+.inner-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px; 
+  padding: 6px 2px 14px;
+}
+
+.inner-incoming .inner-name {
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 6px 2px;
+  font-size: 14px;
+}
+.inner-outgoing .inner-name {
+  display: none;
+}
+
+.inner-content {
+  max-width: 62%;
+  line-height: 1.45;
+  font-size: 15px;
+  border-radius: 14px;
+  padding: 12px 14px;
+  position: relative;
+  word-wrap: break-word;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.inner-incoming .inner-content {
+  background: #ececef; /* xám rất nhạt */
+  color: #222;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  align-self: flex-start;
+}
+
+.inner-outgoing {
+  display: flex;
+  justify-content: flex-end;
+}
+.inner-outgoing .inner-content {
+  background: linear-gradient(180deg, #f054a8, #d9418d);
+  color: #fff;
+  border: none;
+  align-self: flex-end;
+  border-top-right-radius: 22px; 
+  border-bottom-right-radius: 22px;
+}
+
+.inner-incoming + .inner-outgoing {
+  margin-top: 4px;
+}
+.inner-outgoing + .inner-incoming {
+  margin-top: 10px;
+}
+
+.inner-foot {
+  padding-top: 6px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.inner-form {
+  display: grid;
+  grid-template-columns: 1fr 46px; 
+  gap: 10px;
+  align-items: center;
+}
+
+.inner-form input[name="content"] {
+  height: 44px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #f6f6f8;
+  border-radius: 12px;
+  outline: none;
+  padding: 0 14px;
+  font-size: 15px;
+  color: #333;
+}
+.inner-form input[name="content"]::placeholder {
+  color: #999;
+}
+
+.inner-form button {
+  height: 44px;
+  width: 46px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(180deg, #f054a8, #d9418d);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(217, 65, 141, 0.35);
+  transition: transform 0.06s ease;
+}
+.inner-form button:active {
+  transform: scale(0.98);
+}
+
+.inner-form button i {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* End Show Chat */
