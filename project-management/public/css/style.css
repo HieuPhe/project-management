@@ -242,7 +242,7 @@
 
 .chat {
   width: 100%;
-  max-width: 720px; 
+  max-width: 820px;
   margin: 12px auto 0;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -254,8 +254,10 @@
 .inner-body {
   display: flex;
   flex-direction: column;
-  gap: 18px; 
+  gap: 18px;
   padding: 6px 2px 14px;
+  max-height: 450px;
+  overflow-y: auto;
 }
 
 .inner-incoming .inner-name {
@@ -295,7 +297,7 @@
   color: #fff;
   border: none;
   align-self: flex-end;
-  border-top-right-radius: 22px; 
+  border-top-right-radius: 22px;
   border-bottom-right-radius: 22px;
 }
 
@@ -312,15 +314,15 @@
 }
 
 .inner-form {
-  display: grid;
-  grid-template-columns: 1fr 46px; 
-  gap: 10px;
+  display: flex; 
   align-items: center;
+  gap: 10px;
 }
 
 .inner-form input[name="content"] {
+  flex: 1;
   height: 44px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0,0,0,0.15);
   background: #e0e0e0;
   border-radius: 12px;
   outline: none;
@@ -355,3 +357,15 @@
 }
 
 /* End Show Chat */
+
+/* Emoji Icon */
+.tooltip {
+  visibility: hidden;
+}
+
+.tooltip.shown {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* End Emoji Icon */
