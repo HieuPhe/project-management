@@ -3,6 +3,66 @@ include ../../mixins/box-head.pug
 include ../../mixins/product-layout.pug
 
 block main
+  .wrapper
+    //-  HERO SLIDER
+    section#heroSlider.hero.slider(aria-label="#")
+      .slides
+        article.slide.is-active
+          img(
+            alt="#" 
+            src="/images/hero-1.jpg"
+            )
+        article.slide
+          img(
+            alt="#" 
+            src="/images/hero-2.jpg"
+            )
+        article.slide
+          img(
+            alt="#" 
+            src="/images/hero-3.jpg"
+            )
+      //-  Controls
+      button.ctrl.prev(aria-label="Trước") ❮
+      button.ctrl.next(aria-label="Sau") ❯
+      .dots(aria-label="Chọn banner")
+    //-  CARD ROW (giữ nguyên)
+    section.card-row
+      .card
+        h3 Điện thoại
+        img(
+          alt="#"
+          src="/images/banner-1.jpg"
+        )
+      .card
+        h3 Đồng hồ
+        img(
+          alt="#" 
+          src="/images/banner-2.jpg"
+        )
+      .card
+        h3 Laptop
+        img(
+          alt="#" 
+          src="/images/banner-3.jpg"
+        )
+    //-  BOTTOM BANNERS as mini slider
+    section#bottomSlider.bottom.slider(aria-label="Banner phụ")
+      .slides
+        .slide.is-active
+          img(
+            alt="#" 
+            src="/images/bbanner-1.jpg"
+            )
+        .slide
+          img(
+            alt="#" 
+            src="/images/bbanner-2.jpg"
+            )
+      button.ctrl.prev(aria-label="Trước") ❮
+      button.ctrl.next(aria-label="Sau") ❯
+      .dots
+  
 
   .section-products-featured.my-5
     .container
@@ -10,7 +70,6 @@ block main
         .col-12
           +box-head("Sản phẩm nổi bật")
 
-      //- +product-grid(productsFeatured)
       +product-grid(productsFeatured)
 
 
@@ -21,8 +80,10 @@ block main
         .col-12
           +box-head("Sản phẩm mới")
 
-      //- +product-grid(productsNew)
+
       +product-grid(productsNew)
+
+  script(src="/js/home.js")
 
 
   

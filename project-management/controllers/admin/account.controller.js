@@ -95,7 +95,7 @@ module.exports.editPatch = async (req, res) => {
 	const id = req.params.id;
 
 	const emailExist = await Account.findOne({
-		_id: {$ne: id},
+		_id: { $ne: id },
 		email: req.body.email,
 		deleted: false
 	});
@@ -116,3 +116,71 @@ module.exports.editPatch = async (req, res) => {
 
 	res.redirect(req.get('referer') || '/');
 }
+
+// [DELETE] /admin/products/delete/:id
+
+module.exports.deleteItem = async (req, res) => {
+	const id = req.params.id;
+
+	// await Product.deleteOne({ _id: id });
+	await Account.updateOne(
+		{ _id: id },
+		{
+			deleted: true,
+			deletedAt: new Date(),
+		});
+
+	res.redirect(req.get('referer') || '/');
+};
+
+
+// [PATCH] /admin/products/change-status/:status/:id
+
+module.exports.changeStatus = async (req, res) => {
+	const status = req.params.status;
+	const id = req.params.id;
+
+	// const updatedBy = {
+	// 	account_id: res.locals.user.id,
+	// 	updatedAt: new Date()
+	// }
+
+	await Account.updateOne({ _id: id }, {
+		status: status,
+		// $push: { updatedBy: updatedBy }
+	});
+
+	req.flash('success', 'Cập nhật trạng thái thành công!');
+
+	res.redirect(req.get('referer') || '/');
+};
+
+// [GET] /admin/products/detail/:id
+
+module.exports.detail = async (req, res) => {
+	try {
+		const find = {
+			deleted: false,
+			_id: req.params.id
+		};
+
+		const account = await Account.findOne(find).select("-password -token");
+
+		const role = await Role.findOne({
+			_id: account.role_id,
+			deleted: false
+		});
+		account.role = role;
+
+
+
+		res.render("admin/pages/accounts/detail", {
+			pageTitle: account.title,
+			account: account,
+		});
+
+	} catch (error) {
+		req.flash('error', `Không tồn tại sản phẩm này!`);
+		res.redirect(`${systemConfig.prefixAdmin}/accounts`);
+	}
+};

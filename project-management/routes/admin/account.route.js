@@ -14,6 +14,10 @@ const validate = require("../../validates/admin/account.validate");
 
 router.get('/', controller.index);
 
+router.patch('/change-status/:status/:id', controller.changeStatus);
+
+router.delete('/delete/:id', controller.deleteItem);
+
 router.get('/create', controller.create);
 
 router.post(
@@ -33,5 +37,7 @@ router.patch(
     validate.editPatch,
     controller.editPatch
 );
+
+router.get('/detail/:id', controller.detail);
 
 module.exports = router;

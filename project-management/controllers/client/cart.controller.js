@@ -33,7 +33,7 @@ module.exports.index = async (req,res) =>{
     
 
     res.render("client/pages/cart/index",{
-    pageTitle: "Gio hang",
+    pageTitle: "Giỏ hàng",
     cartDetail: cart 
     });
 };

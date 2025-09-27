@@ -19,6 +19,44 @@ module.exports.index = async (req, res) => {
   });
 }
 
+// [PATCH] /admin/products-category/change-status/:status/:id
+
+module.exports.changeStatus = async (req, res) => {
+  const status = req.params.status;
+  const id = req.params.id;
+
+  const updatedBy = {
+    account_id: res.locals.user.id,
+    updatedAt: new Date()
+  }
+
+  await ProductCategory.updateOne({ _id: id }, {
+    status: status,
+    $push: { updatedBy: updatedBy }
+  });
+
+  req.flash('success', 'Cập nhật trạng thái thành công!');
+
+  res.redirect(req.get('referer') || '/');
+};
+
+// [DELETE] /admin/products-category/delete/:id
+
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+
+  // await ProductCategory.deleteOne({ _id: id });
+  await ProductCategory.updateOne(
+    { _id: id },
+    {
+      deleted: true,
+      deletedAt: new Date(),
+    });
+
+
+  res.redirect(req.get('referer') || '/');
+};
+
 //[GET] /admin/products-category/create
 
 module.exports.create = async (req, res) => {
@@ -41,23 +79,24 @@ module.exports.create = async (req, res) => {
 
 module.exports.createPost = async (req, res) => {
   //cần thêm cho các phương thức post, patch, delete
-  if (permissions.includes("products-category_create")) {
-    if (req.body.position == "") {
-      const count = await ProductCategory.countDocuments();
-      req.body.position = count + 1;
-    } else {
-      req.body.position = parseInt(req.body.position);
-    }
+  // if (permissions.includes("products-category_create")) {
 
-    const record = new ProductCategory(req.body);
-
-    await record.save();
-
-    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+  // } else {
+  //   res.send("403");
+  //   return;
+  // }
+  if (req.body.position == "") {
+    const count = await ProductCategory.countDocuments();
+    req.body.position = count + 1;
   } else {
-    res.send("403");
-    return;
+    req.body.position = parseInt(req.body.position);
   }
+
+  const record = new ProductCategory(req.body);
+
+  await record.save();
+
+  res.redirect(`${systemConfig.prefixAdmin}/products-category`);
 
 };
 
@@ -103,3 +142,27 @@ module.exports.editPatch = async (req, res) => {
 
   res.redirect(req.get('referer') || '/');
 }
+
+//[GET] /admin/products-category/detail/:id
+
+module.exports.detail = async (req, res) => {
+  try {
+    const find = {
+      deleted: false,
+      _id: req.params.id
+    };
+
+    const category = await ProductCategory.findOne(find);
+
+
+
+    res.render("admin/pages/products-category/detail", {
+      pageTitle: category.title,
+      category: category
+    });
+  } catch (error) {
+    req.flash('error', `Không tồn tại sản phẩm này!`);
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+  }
+};
+
