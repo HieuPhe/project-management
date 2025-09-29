@@ -641,7 +641,6 @@ header.header .sub-menu > ul li:hover > ul {
   cursor: pointer;
 }
 
-
 /* End Show Chat */
 
 /* Emoji Icon */
@@ -1306,7 +1305,6 @@ header.header .sub-menu > ul li:hover > ul {
   color: #111827;
 }
 
-
 /* box-user */
 .box-user {
   display: flex;
@@ -1352,5 +1350,21 @@ header.header .sub-menu > ul li:hover > ul {
 .box-user.add [btn-cancel-friend] {
   display: inline-block;
 }
-/* End box-user */
 
+.box-user [btn-deleted-friend] {
+  display: none;
+}
+
+.box-user.refuse [btn-accept-friend] {
+  display: none;
+}
+
+.box-user.refuse [btn-refuse-friend] {
+  display: none;
+}
+
+.box-user.refuse [btn-deleted-friend] {
+  display: inline-block;
+}
+
+/* End box-user */
