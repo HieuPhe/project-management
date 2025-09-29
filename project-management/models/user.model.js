@@ -1,4 +1,4 @@
-const  mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const generate = require(".././helpers/generate");
 
 const userSchema = new mongoose.Schema(
@@ -16,14 +16,22 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: "active"
         },
+        requestFriends: Array,
+        acceptFriends: Array,
+        friendList: [
+            {
+                user_id: String,
+                room_chat_id: String,
+            }
+        ],
         deleted: {
             type: Boolean,
             default: false
         },
         deletedAt: Date
-    },{
-        timestamps: true
-    });
+    }, {
+    timestamps: true
+});
 
 const User = mongoose.model('User', userSchema, "users");
 
