@@ -1383,7 +1383,14 @@ header.header .sub-menu > ul li:hover > ul {
   display: inline-block;
 }
 
-/* End box-user */
+.box-user .inner-status {
+  font-size: 12px;
+  color: #00d800;
+  opacity: 0;
+}
 
+.box-user .inner-status[status="online"] {
+  opacity: 1;
+}
 
 /* End box-user */
