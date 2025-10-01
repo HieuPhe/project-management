@@ -3,6 +3,8 @@ const router = express.Router();
 
 const controller = require("../../controllers/client/chat.controller");
 
-router.get('/', controller.index);
+const chatMiddleware = require("../../middlewares/client/chatmiddleware");
+
+router.get('/:roomChatId', chatMiddleware.isAccess, controller.index);
 
 module.exports = router;

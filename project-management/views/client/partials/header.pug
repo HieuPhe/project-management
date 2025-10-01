@@ -38,8 +38,10 @@ header.header
             li 
               a(href="/cart") 🛒 (#{miniCart ? miniCart.totalQuantity : 0})
             if(user)
+              //- li
+              //-   a(href="/chat") Chat
               li
-                a(href="/chat") Chat
+                a(href="/users/friends") Bạn bè
               li
                 a(href="/user/info") #{user.fullName}
               li
