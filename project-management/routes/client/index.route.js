@@ -14,8 +14,6 @@ const chatRoutes = require("./chat.route");
 const usersRoutes = require("./users.route");
 
 
-
-
 module.exports = (app) => {
 
     app.use(categoryMiddleware.category);
